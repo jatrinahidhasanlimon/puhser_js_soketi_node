@@ -27,7 +27,17 @@
     // });  
     
     
-    var pusherDevEnv = new Pusher("app-key", {
+    var pusherProduction = new Pusher("app-key", {
+        wsHost: '18.138.218.206',
+        wsPort: 8085,
+        forceTLS: false,
+        encrypted: true,
+        disableStats: true,
+        enabledTransports: ['ws', 'wss'],
+    }); 
+
+
+    var pusherProductionTwo = new Pusher("app_1234", {
         wsHost: '18.138.218.206',
         wsPort: 8085,
         forceTLS: false,
@@ -66,9 +76,13 @@
         console.log('Recieved pusher 2 ', data)
     }); 
     
-    pusherDevEnv.subscribe("my-channel-dev").bind("my-event-dev", (data) => {
+    pusherProduction.subscribe("my-channel-dev").bind("my-event-dev", (data) => {
         // Method to be dispatched on trigger.
         console.log('Recieved Pusher Dev ', data)
+    });
+    pusherProductionTwo.subscribe("my-channel-dev").bind("my-event-dev", (data) => {
+        // Method to be dispatched on trigger.
+        console.log('Recieved pusherProductionTwo ', data)
     });
     </script>
 </body>
