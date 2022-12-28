@@ -1,0 +1,308 @@
+body {
+    margin: 20px;
+    margin-top: 50px !important;
+    background-color: #fff;
+}
+
+a {
+    color: #c00;
+}
+
+.page-content-wrapper .page-content {
+    margin-left: 0;
+    padding: 0;
+}
+
+.page-content-wrapper .page-content {
+    padding: 0 !important;
+}
+
+.newest-auction {
+    margin: 1px;
+    padding: 0;
+    list-style: none;
+}
+
+.newest-auction > li {
+    margin: 0 0 20px;
+}
+
+.newest-auction > li > img {
+    float: left;
+    width: 200px;
+    height: 130px;
+}
+
+.newest-auction > li > .info {
+    overflow: hidden;
+    background-color: #f5f5f5;
+    position: relative;
+    height: 140px;
+    padding-top: 7px;
+    padding-right: 40px;
+    text-align: left;
+}
+
+.newest-auction > li > .info > .title {
+    font-size: 12pt;
+    margin: 0;
+    color: #c00;
+}
+
+.newest-auction > li > .info > .desc {
+    font-size: 12pt;
+    font-weight: 300;
+    margin: 0;
+}
+
+.newest-auction > li > .info a {
+    margin: 0 10px;
+}
+
+.newest-auction > li > .info > .price {
+    font-size: 17pt;
+    margin: 0;
+    color: #c00;
+}
+
+.newest-auction > li > .info > .year {
+    margin: 0;
+}
+
+.newest-auction > li > .info > .milage {
+    margin: 0;
+}
+
+.newest-auction > li > .info > ul {
+    display: table;
+    width: 100%;
+    margin: 10px 0 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.newest-auction > li > .info > ul > li {
+    display: table-cell;
+    font-size: 11pt;
+    font-weight: 300;
+    padding: 3px 0 3px 10px;
+    text-align: left;
+    color: #1e1e1e;
+    border-right: 1px solid #fff;
+}
+
+.newest-auction > li > .info > ul > li > small {
+    margin-left: 4px;
+    color: #c00;
+}
+
+.newest-auction > li > .info > .title,
+.newest-auction > li > .info > .desc {
+    padding: 0 10px;
+}
+
+.newest-auction > li > .info > .price {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+}
+
+.newest-auction > li > .info > .year {
+    font-size: 11pt;
+    position: absolute;
+    top: 34px;
+    right: 10px;
+}
+
+.newest-auction > li > .info > .milage {
+    position: absolute;
+    top: 55px;
+    right: 10px;
+}
+
+.newest-auction > li > .info > ul {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #fff;
+    background-color: #d9d9d9;
+}
+
+@media only screen and (max-width: 768px) {
+    .newest-auction > li > img {
+         width: 100%;
+         height: 100%;
+    }
+    .newest-auction > li > .info > .title {
+         font-size: 11pt;
+         margin: 0;
+         color: #c00;
+    }
+    .newest-auction > li > .info > .desc {
+         font-size: 12pt;
+         font-weight: 300;
+         margin: 0;
+    }
+    .newest-auction > li > .info a {
+         font-size: 12pt;
+         margin: 0 10px;
+    }
+    .newest-auction > li > .info > .price {
+         font-size: 14pt;
+         margin: 0;
+         color: #c00;
+    }
+    .newest-auction > li > .info > .year {
+         position: absolute;
+         top: 27px;
+         font-size: 12pt;
+    }
+    .newest-auction > li > .info > .milage {
+         position: absolute;
+         top: 50px;
+         font-size: 12pt;
+    }
+    .newest-auction > li > .info > ul > li {
+         display: table-cell;
+         font-size: 11pt;
+         font-weight: 300;
+         padding: 3px 0 3px 10px;
+         text-align: left;
+         color: #1e1e1e;
+         border-right: 1px solid #fff;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .newest-auction > li > img {
+         width: 100%;
+         height: 100%;
+    }
+    .newest-auction > li > .info > .title {
+         font-size: 12pt;
+         margin: 0;
+         color: #c00;
+    }
+    .newest-auction > li > .info > .desc {
+         font-size: 10pt;
+         font-weight: 300;
+         margin: 0;
+    }
+    .newest-auction > li > .info a {
+         font-size: 10pt;
+         margin: 0 10px;
+    }
+    .newest-auction > li > .info > .price {
+         font-size: 12pt;
+         margin: 0;
+         color: #c00;
+    }
+    .newest-auction > li > .info > .year {
+         position: absolute;
+         top: 25px;
+         font-size: 10pt;
+         margin: 0;
+    }
+    .newest-auction > li > .info > .milage {
+         position: absolute;
+         top: 45px;
+         font-size: 10pt;
+         margin: 0;
+    }
+    .newest-auction > li > .info > ul > li {
+         display: table-cell;
+         font-size: 10pt;
+         font-weight: 300;
+         padding: 3px 0 3px 10px;
+         text-align: left;
+         color: #1e1e1e;
+         border-right: 1px solid #fff;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .newest-auction > li > img {
+         width: 100%;
+         height: 100%;
+    }
+    .newest-auction > li > .info > .title {
+         font-size: 10pt;
+         margin: 0;
+         color: #c00;
+    }
+    .newest-auction > li > .info > .desc {
+         font-size: 12pt;
+         font-weight: 300;
+         margin: 0;
+    }
+    .newest-auction > li > .info a {
+         margin: 0 10px;
+    }
+    .newest-auction > li > .info > .price {
+         font-size: 17pt;
+         margin: 0;
+         color: #c00;
+    }
+    .newest-auction > li > .info > .year {
+         margin: 0;
+    }
+    .newest-auction > li > .info > .milage {
+         margin: 0;
+    }
+}
+
+.btn-bid {
+    padding-left: 0 !important;
+    text-align: center !important;
+    vertical-align: middle;
+    color: #fff !important;
+    border-right: none !important;
+    background-color: #c00;
+    border-radius: 0;
+}
+
+.btn-bid:hover {
+    background-color: #333 !important;
+}
+.container {
+    padding: 15px;
+    /* max-width: 690px; */
+    align-items: center;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  input[type=text] {
+    width: 80%;
+    padding: 10px 10px;
+    margin: 10px 10px;
+    box-sizing: border-box;
+  }
+  .btn-confirmation {
+    padding-left: 0 !important;
+    text-align: center !important;
+    vertical-align: middle;
+    color: #fff !important;
+    border-right: none !important;
+    background-color: rgb(16, 34, 54);
+    border-radius: 0;
+}
+.center {
+      margin: auto;
+      width: 100%;
+      border: 3px solid green;
+      padding: 10px;
+    }

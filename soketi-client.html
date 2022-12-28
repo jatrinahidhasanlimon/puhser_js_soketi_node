@@ -49,6 +49,22 @@
         rideCreated.bind("App\\Events\\RideCreated", (data) => {
             console.log('ride event done', data)
     })
+
+
+    let rideRequst =  pusherProductionTwo.subscribe("ride-requests")
+    
+    rideRequst.bind("request_placed", (data) => {
+                console.log('a new ride request placed', data)
+        })
+
+
+
+        pusherProductionTwo.subscribe("driver.6").bind("ride-created", (data) => {
+                console.log('a new ride request placed', data)
+        })
+
+        
+
     </script>
 </body>
 </html>
