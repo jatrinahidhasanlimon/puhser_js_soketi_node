@@ -14,10 +14,14 @@
     <div class="container ">
         <div class="row">
             <div class="col-md-6" id="bid_div">
-                <!-- <ul class="newest-auction">
-                    <li>
+                <ul class="newest-auction" id="auction">
+                    <li id="request_number_000">
+                        <input  name="ride_details_000['ride_id']"  value="110000">
+                        <input  name="ride_details_000['fare']"  value="110000">
+                        <input  name="ride_details_000['created_at']"  value="110000">
                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNGZDlgqu5WAs9WAV_HS8wqpmneintd0grew&usqp=CAU" alt="">
-                         <h6>Mr . Omuk</h6>
+                         <h6>Mr. User - RideID: 2001</h6>
+                         <h6>Ride Number: JRSGD3342D</h6>
                          <div class="info">
                               <h6 class="title">Pick At: </h6>
                               <h6 class="title"> Drop At: </h6>
@@ -28,17 +32,16 @@
                               <ul>
                                    <li class="btn-bid">
                                       <input type="text" placeholder="Enter your offer">
-                                     
-                                      <button class="btn">BID NOW</button>
+                                      <button class="btn bid_now_btn" >BID NOW</button>
                                   </li>
                                    <li class="btn-confirmation"> 
-                                      <button class="btn ">Accept</button>
-                                      <button class="btn ">Reject</button>
+                                      <button class="btn accept_btn" data-ride_id="0000">Accept</button>
+                                      <button class="btn reject_btn" data-ride_id="000">Reject</button>
                                   </li>
                               </ul>
                          </div>
                     </li>
-               </ul> -->
+               </ul>
             </div>
        </div>
     </div>
@@ -46,7 +49,8 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="https://js.pusher.com/7.2.0/pusher.min.js"></script>
     <script>
-    var pusherProductionTwo = new Pusher("app_1234", {
+        const loggedUserID = 2222;
+    var pusherProductionTwo = new Pusher("app-key", {
         authEndpoint: `https://domain_name.com/broadcasting/auth`,
         wsHost: '18.138.218.206',
         wsPort: 8085,
@@ -66,31 +70,54 @@
 
      function appendNewDiv(data){
         $( "#bid_div" ).append( `<ul class="newest-auction center">
-                    <li>
+                    <li id="request_number_${data.ride.id}">
+                        <input  name="ride_details_${data.ride.id}['fare']"  value="${data.ride.fare}">
                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNGZDlgqu5WAs9WAV_HS8wqpmneintd0grew&usqp=CAU" alt="">
                          <h6>${data.user.name} - RideID: ${data.ride.id}</h6>
+                         <h6> Ride Number: ${data.ride.ride_number}</h6>
                          <div class="info">
                               <h6 class="title">Pick At: ${data.ride.pick_address} </h6>
                               <h6 class="title"> Drop At:  ${data.ride.pick_address} </h6>
-                              <!-- <a href="#">Details </a> -->
+                              <h2 class="price" > <span id="ride_fare_${data.ride.id}">  ${data.ride.fare} </span> BDT. </h2>
                               <h2 class="price"> ${data.ride.fare} BDT. </h2>
                               <p class="year">Distance: <span class="font-red-thunderbird">  ${data.ride.estimated_distance} KM</span></p>
                               <p class="milage">Time <span class="font-red-thunderbird">  ${data.ride.estimated_time} </span> Minutes</p>
                               <ul>
                                    <li class="btn-bid">
-                                      <input type="text" placeholder="Enter your offer">
-                                     
-                                      <button class="btn">BID NOW</button>
+                                      <input type="text" class="bid_amount" id="driver_bid_amount_${data.ride.id}" placeholder="Enter your offer">
+                                      <button class="btn bid_now_btn"   data-ride_id="${data.ride.id}" >BID NOW</button>
                                   </li>
                                    <li class="btn-confirmation"> 
-                                      <button class="btn" data-ride_id=" ${data.ride.id}">Accept</button>
-                                      <button class="btn ">Reject</button>
+                                      <button class="btn accept_btn" data-ride_id="${data.ride.id}">Accept</button>
+                                      <button class="btn reject_btn"  data-ride_id="${data.ride.id}" >Reject</button>
                                   </li>
                               </ul>
                          </div>
                     </li>
                </ul>` );
-     }   
+     }  
+
+     function bidNowBtnClick(){
+       
+     }
+    //  $(".accept_btn").on("click", function() {
+    //     console.log('Accept Button Clicked.')
+    // });
+    $(".container").on("click", ".accept_btn", function (event) {
+        let ride_id = $(this).data("ride_id")
+        console.log('ride id: ', ride_id)
+        // let ride_details = $(`input[name="ride_details_${ride_id}['fare']"]`).val()
+        let ride_details = parseFloat( $(`#ride_fare_${ride_id}`).text() )
+        console.log('ride details is: ',  (ride_details))
+       
+        sendAjaxRequest(`/ride-bid/${ride_id}`,{driver_id:  loggedUserID, offered_amount: 100})
+    });
+   
+     function sendAjaxRequest(url,payload){
+        return $.ajax({type: "POST",url: url, data: payload, success: function(result){
+            $("#div1").html(result);
+        }});
+     }
    
     </script>
 </body>
