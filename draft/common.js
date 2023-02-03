@@ -1,10 +1,14 @@
 
- function isLoggedIn(){
-           let token = $.getCookie('token');
-           if(!token){ return false;}
-           return true;
-        }
+// window.setC();
 
-if(!isLoggedIn()){
-    window.location.replace("login.html");
-}
+
+function isLoggedIn(){
+    let token = window.getCookie('token');
+    if(!token){ return false;}
+    return true;
+ }
+
+// if(!isLoggedIn()){
+// console.log('what');
+// window.location.replace("login.html");
+// }

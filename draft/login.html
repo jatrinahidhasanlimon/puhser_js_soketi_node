@@ -31,21 +31,26 @@
       <script src="cookie_helper.js"></script>
       <script src="common.js"></script>
       <script>
+// window.myfunc(); 
+
+
+
+
         function getProfile(){
           $.ajax({
-              method: "POST",
+              method: "GET",
               url: "http://127.0.0.1:8000/api/v1/profile",
               beforeSend: function (xhr){ 
                   xhr.setRequestHeader('Authorization', getCookie('token')); 
               },
               success: function(result){
               console.log('profile is: ', result);
-               setCookie('loggedDriver', result.driver);
+               setCookie('loggedDriver', JSON.stringify(result.driver));
             }});
         }
 
 
-        console.log('is token exist: ', isLoggedIn());
+        // console.log('is token exist: ', isLoggedIn());
 
 
 
@@ -56,7 +61,7 @@
          $('#login_btn').click(function(e){
           e.preventDefault();
             
-          return;
+          // return;
           var data = $('#login_form').serialize();
             // $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
             console.log('login btuun clicke');
