@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="login.css">
-    
-</head>
-<body>
+<?php include_once('partial/header.php'); ?>
     <div class="login-page">
         <div class="form">
           <form class="register-form">
@@ -27,32 +17,10 @@
           </form>
         </div>
       </div>
-      <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-      <script src="cookie_helper.js"></script>
-      <script src="common.js"></script>
+      <?php include_once('partial/script.php'); ?>
       <script>
-// window.myfunc(); 
-
-
-
-
-        function getProfile(){
-          $.ajax({
-              method: "GET",
-              url: "http://127.0.0.1:8000/api/v1/profile",
-              beforeSend: function (xhr){ 
-                  xhr.setRequestHeader('Authorization', getCookie('token')); 
-              },
-              success: function(result){
-              console.log('profile is: ', result);
-               setCookie('loggedDriver', JSON.stringify(result.driver));
-            }});
-        }
-
-        // console.log('is token exist: ', isLoggedIn());
-
-
-
+        
+        console.log('is token exist: ', isLoggedIn());
 
         $('.message a').click(function(){
             $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
@@ -72,10 +40,10 @@
                 if(result.status == 'success'){
                     setCookie('token', result.token);
                     getProfile();
+                    window.location.replace("index.php")
                 }
               
             }});
         });
       </script>
-</body>
-</html>
+<?php include_once('partial/footer.php'); ?>

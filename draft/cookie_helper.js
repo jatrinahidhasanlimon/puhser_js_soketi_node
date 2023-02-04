@@ -11,8 +11,9 @@ window.setCookie = function (cname, cvalue, exdays) {
         let expires = "expires="+d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
       }
-      console.log('cookie');
-      window.getCookie =  function (cname) {
+      
+
+window.getCookie =  function (cname) {
         let name = cname + "=";
         let ca = document.cookie.split(';');
         for(let i = 0; i < ca.length; i++) {
@@ -27,7 +28,8 @@ window.setCookie = function (cname, cvalue, exdays) {
         return "";
       }
       
-      window.checkCookie = function () {
+      
+window.checkCookie = function () {
         let user = getCookie("username");
         if (user != "") {
           alert("Welcome again " + user);
@@ -38,5 +40,13 @@ window.setCookie = function (cname, cvalue, exdays) {
           }
         }
     }
+window.eraseCookie = function (cname) {
+  // document.cookie = cname+'=; Max-Age=-99999999;';  
+  document.cookie = "loggedDriver=/; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+}
+
+
+
+
 
 
