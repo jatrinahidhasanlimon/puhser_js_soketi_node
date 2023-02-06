@@ -19,31 +19,22 @@
       </div>
       <?php include_once('partial/script.php'); ?>
       <script>
-        
+        if(isLoggedIn()){
+          
+        }
         console.log('is token exist: ', isLoggedIn());
 
         $('.message a').click(function(){
             $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
         });
+
+
          $('#login_btn').click(function(e){
           e.preventDefault();
-            
-          // return;
           var data = $('#login_form').serialize();
-            // $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
-            console.log('login btuun clicke');
-            $.ajax({
-              method: "POST",
-              url: "http://127.0.0.1:8000/api/v1/login",
-              data:  data,
-              success: function(result){
-                if(result.status == 'success'){
-                    setCookie('token', result.token);
-                    getProfile();
-                    window.location.replace("index.php")
-                }
-              
-            }});
+            login(data);
         });
+
+
       </script>
 <?php include_once('partial/footer.php'); ?>

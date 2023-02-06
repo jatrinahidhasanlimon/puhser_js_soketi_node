@@ -42,7 +42,9 @@ window.checkCookie = function () {
     }
 window.eraseCookie = function (cname) {
   // document.cookie = cname+'=; Max-Age=-99999999;';  
-  document.cookie = "loggedDriver=/; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+  // document.cookie = "token=/; expires = Thu, 01 Jan 1970 00:00:00 GMT"
+  document.cookie = cname + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/"
+
 }
 
 
