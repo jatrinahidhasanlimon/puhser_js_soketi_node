@@ -3,9 +3,15 @@ function isLoggedIn(){
     if(!token){ return false;}
     return true;
  }
- if(isLoggedIn() ) {
-    // console.log('window location', window.location.pathname.split('/') );
-    // window.location.replace("index.php");
+ if(!isLoggedIn() ) {
+    if(window.location.pathname.split('/').pop() != 'login.php'){
+        window.location.replace("login.php");
+    }
+}else{
+    if(window.location.pathname.split('/').pop() == 'login.php'){
+        // window.location.replace("index.php");`
+        return false;
+    }
 }
 
 function getProfile(){
@@ -16,8 +22,9 @@ function getProfile(){
             xhr.setRequestHeader('Authorization', window.localStorage.getItem('token')); 
         },
         success: function(response){
-        console.log('profile is: ', response);
+        console.log('profile is: ', response.driver);
         window.localStorage.setItem('loggedDriver', JSON.stringify(response.driver));
+          window.location.replace("index.php")
       }});
   }
 function login (data){
@@ -30,13 +37,15 @@ function login (data){
           if(response.status == 'success'){
               window.localStorage.setItem('token', response.token);
               getProfile();
-              window.location.replace("index.php")
+            
           }
         
       }});
 }
 
 function logout(){
-    console.log('logout button clicked');
+
     window.localStorage.removeItem('token');
+    window.localStorage.removeItem('loggedDriver');
+    window.location.replace("login.php");
 }

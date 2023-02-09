@@ -6,6 +6,7 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav navbar-right">
       <a class="nav-item nav-link" href="login.php">Login</a>
+      <a class="nav-item nav-link" href="profile.php">Profile</a>
       <a class="btn btn-outline-danger nav-item nav-link navbar-right" id="logout_btn" onclick="logout()">Logout</a>
     </div>
   </div>
