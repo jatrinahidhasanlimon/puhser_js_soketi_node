@@ -33,7 +33,7 @@ function  getProfileDeatils(){
             var concatString = '';
             
             for (const key in parsedDriver) {
-                console.log(`${key}: ${parsedDriver[key]}`);
+                // console.log(`${key}: ${parsedDriver[key]}`);
                 keyValue = parsedDriver[key]
                 concatString += `<tr><td>${key} </td> <td> ${keyValue} </td></tr>`
             }
