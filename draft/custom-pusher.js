@@ -3,7 +3,7 @@ var pusherProduction = new Pusher("app-key", {
     auth: {
         headers: {
             Authorization: `${token}`,
-            // Accept: 'application/json',
+            Accept: 'application/json',
         },
     },
     wsHost: '18.138.218.206',
@@ -14,19 +14,19 @@ var pusherProduction = new Pusher("app-key", {
     enabledTransports: ['ws', 'wss'],
 });
 var loggedDriverChannel;
-// pusherProduction.subscribe('private-driverOne');
  async function autoConnectToAChannel(channelName= "Something"){
     console.log('From auto connect to a channel', channelName);
-    // pusherProduction.subscribe(channelName);
-    pusherProduction.subscribe(`private-${channelName}`).bind("pusher:subscription_succeeded", (data) => {
+    pusherProduction.subscribe(`${channelName}`).bind("pusher:subscription_succeeded", (data) => {
         console.log('Succeed callback');
     });
+    // pusherProduction.subscribe(`private-test.1`).bind("pusher:subscription_succeeded", (data) => {
+    //     console.log('Succeed callback');
+    // });
 }
 if(token){
     var driverDetails = window.localStorage.getItem('loggedDriver');
     if(driverDetails){
-        // var channel_name = JSON.parse(driverDetails).channel_name;
-        var channel_name = `driver.${JSON.parse(driverDetails).id}`;
+        var channel_name = `private-driver.${JSON.parse(driverDetails).id}`;
         autoConnectToAChannel(channel_name)
     }
 }

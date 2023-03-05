@@ -2,7 +2,7 @@
 $.ajaxSetup({
     beforeSend: function(xhr, setting) {
       console.log("intercept before ajax send");
-      console.log(xhr, setting);
+      xhr.setRequestHeader('Authorization', window.localStorage.getItem('token')); 
     }
 });
 
@@ -46,9 +46,9 @@ function isLoggedIn(){
     return $.ajax({
         method: "GET",
         url: "http://127.0.0.1:8080/api/v1/profile",
-        beforeSend: function (xhr){ 
-            xhr.setRequestHeader('Authorization', window.localStorage.getItem('token')); 
-        },
+        // beforeSend: function (xhr){ 
+        //     // xhr.setRequestHeader('Authorization', window.localStorage.getItem('token')); 
+        // },
         success: function(response){
         console.log('profile is: ', response.driver);
         
@@ -68,8 +68,8 @@ function isLoggedIn(){
               getProfile().then( (response)=> {
                 window.localStorage.setItem('loggedDriver', JSON.stringify(response.driver));
                 window.localStorage.setItem('activeVehicle', JSON.stringify(response.active_vehicle));
-                autoConnectToAChannel(response.driver.channel_name).then( (response)=> {
-                    // window.location.replace("index.php")
+                autoConnectToAChannel(`driver.${response.driver.id}`).then( (response)=> {
+                    window.location.replace("index.php")
                 });
                
               }).catch(function(error) {
