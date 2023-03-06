@@ -37,6 +37,11 @@ pusherProduction.bind("ride_request_placed", (data) => {
     console.log('Console log from a singular ride_request_placed event', data)
    
 })
+pusherProduction.bind("ride-created", (data) => {
+    console.log('ride-created Event', data)
+    appendNewBidDiv(data);
+   
+})
 
 
 // pusherProduction.subscribe("driverAnother").bind("ride_request_placed", (data) => {
