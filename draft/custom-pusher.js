@@ -1,4 +1,7 @@
-var pusherProduction = new Pusher("app-key", {
+var pusherProduction = new Pusher(
+    // "app-key",
+    "e40ab1bf20cf837961fe",
+     {
     authEndpoint: 'http://127.0.0.1:8080/broadcasting/auth',
     auth: {
         headers: {
@@ -6,17 +9,18 @@ var pusherProduction = new Pusher("app-key", {
             Accept: 'application/json',
         },
     },
-    wsHost: '18.138.218.206',
-    wsPort: 8085,
+    // wsHost: '18.138.218.206',
+    // wsPort: 8085,
     forceTLS: false,
     encrypted: true,
     disableStats: true,
+    cluster: 'ap2',
     enabledTransports: ['ws', 'wss'],
 });
-var loggedDriverChannel;
+var pusherProduction;
  async function autoConnectToAChannel(channelName= "Something"){
     console.log('From auto connect to a channel', channelName);
-    pusherProduction.subscribe(`${channelName}`).bind("pusher:subscription_succeeded", (data) => {
+    pusherProduction =  pusherProduction.subscribe(`${channelName}`).bind("pusher:subscription_succeeded", (data) => {
         console.log('Succeed callback');
     });
     // pusherProduction.subscribe(`private-test.1`).bind("pusher:subscription_succeeded", (data) => {
@@ -53,3 +57,9 @@ pusherProduction.bind("ride-created", (data) => {
 //     console.log('a new ride request placed', data)
    
 // })
+
+
+$("body").on("click", "#trigger_button", function (event) {
+    console.log('event triggered')
+    pusherProduction.trigger('client-eventName', 'data');
+});

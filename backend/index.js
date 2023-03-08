@@ -15,15 +15,27 @@ const pusher = new Pusher({
   // cluster: "CLUSTER", 
   // host: "18.138.218.206", 
   // port: 8085, 
+
+    appId: "app-id",
+  key: "app-key",
+  secret: "app-secret",
+  useTLS: false, 
+  cluster: "CLUSTER", 
+  host: "127.0.0.1", 
+  port: 6001, 
   
 
   //for pusher
   
-  appId: "1530977",
-  key: "e40ab1bf20cf837961fe",
-  secret: "ee17ad75d650f02c41a0",
-  useTLS: false, 
-  cluster: "ap2",
+  // appId: "1530977",
+  // key: "e40ab1bf20cf837961fe",
+  // secret: "ee17ad75d650f02c41a0",
+  // useTLS: false, 
+  // cluster: "ap2",  
+  
+  
+  
+
  
 })
 const app = express();
@@ -58,7 +70,13 @@ app.listen(port, ()=>{
   
   console.log(`Listening on port ${port}!`) 
 });
+
 app.use('/trigger-notification',( req, res) => {
   pusher.trigger("node-my-channel", "my-event", { message: "hello world" });    
+  res.send('Notification send.')
+});
+
+app.use('/catch-hook',( req, res) => {
+    console.log('received data: ', req)
   res.send('Notification send.')
 });

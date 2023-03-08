@@ -3,6 +3,7 @@
     <div class='container'>
         
     <h1 >Driver:  <span id="logged_driver_name_span"></span></h1>
+    <h1 >  <button id="trigger_button">Trigger a Event</button></h1>
    
     <div class="row" id="bid_div">
     <!-- <div class="col-sm-4 mt-1">
