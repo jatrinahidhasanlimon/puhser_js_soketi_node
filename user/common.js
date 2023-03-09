@@ -103,7 +103,7 @@ function isLoggedIn(){
 
 
 function logout(){
-    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('userToken');
     window.localStorage.removeItem('loggedUser');
     window.location.replace("login.php");
 }
