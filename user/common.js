@@ -114,14 +114,15 @@ function appendNewBidDiv(data){
         <div class="card flex-row">
                 <img class=""card-img-sm-left example-card-img-responsive" src="photos/sample-car.jpeg"/>
                 <div class="card-body">
-                <span class="badge rounded-pill bg-success text-white"> <span id="driver_ratings">2.3</span> * <span id="driver_total_trips">45</span> trips</span>
+                <span class="badge rounded-pill bg-success text-white"> <span id="driver_ratings">${data.driver.rating}</span> * <span id="driver_total_trips">${data.driver.completed_rides}</span> trips</span>
+                <h5 class="card-title">Ride ID: ${data.bid.ride_id}</h5>
                 <h5 class="card-title">Corolla Axio 2014</h5>
-                <span class="badge rounded-pill bg-info text-dark ">100 BDT.</span>
+                <span class="badge rounded-pill bg-info text-dark ">${data.bid.bid_fare} BDT.</span>
                 <ul class="list-group list-group-horizontal my-1 overflow-auto">
-                    <li class="list-group-item"> <span id="driver_total_trips">45</span> m</li>
-                    <li class="list-group-item"><span id="driver_total_trips">45</span> minutes away</li>
+                    <li class="list-group-item"> <span id="est_duration">${data.bid.est_duration}</span> m</li>
+                    <li class="list-group-item"><span id="est_distance">${data.bid.est_distance}</span> minutes away</li>
                 </ul>
-                <button class="btn btn-primary accept_bid_btn" data-bid_id="${data.bid.id}" type="button">Accept</button>
+                <button class="btn btn-primary accept_bid_btn" data-bid_fare="${data.bid.bid_fare}" data-bid_id="${data.bid.id}" data-ride_id="${data.bid.ride_id}" type="button">Accept</button>
                 </div>
         </div>
        </div>` );
@@ -129,12 +130,16 @@ function appendNewBidDiv(data){
 
      $(".container").on("click", ".accept_bid_btn", function (event) {
         let bid_id = $(this).data("bid_id")
+        let ride_id = $(this).data("ride_id")
+        let bid_fare = parseFloat( $(this).data("bid_fare") )
+        console.log('bid  fare is: ',  (bid_fare))
         console.log('ride id: ', bid_id)
-        // let ride_details = $(`input[name="ride_details_${bid_id}['fare']"]`).val()
-        let ride_details = parseFloat( $(`#ride_fare_${bid_id}`).text() )
-        console.log('ride details is: ',  (ride_details))
-    
-        sendAjaxRequest(`http://localhost:8080/api/v1/ride-bid/${bid_id}`,{driver_id:  getLoggedUser().id, offered_amount: ride_details})
+        console.log('bid id: ', bid_id)
+        sendAjaxRequest(`http://localhost:8000/api/v1/ride/${ride_id}/bid/${bid_id}/accept`,{ bid_id:  bid_id, fare: bid_fare}).then((response)=>{
+            if(response){
+                console.log('after accept response: ', response)
+            }
+          })
     });
 
 

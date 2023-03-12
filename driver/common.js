@@ -136,7 +136,7 @@ function storeCurrentLocation(){
 
 
     function appendNewBidDiv(data){
-        $( "#bid_div" ).append( `<div class="col-sm-4 mt-1">
+        $( "#bid_div" ).append( `<div class="col-sm-4 mt-1" id="root_card_ride_${data.ride.id}">
         <div class="card" style="width: 28rem;">
             <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNGZDlgqu5WAs9WAV_HS8wqpmneintd0grew&usqp=CAU" alt="Card image cap">
             <div class="card-body">
@@ -157,35 +157,72 @@ function storeCurrentLocation(){
                 <p class="card-text">
                     drop: ${data.ride.drop_address}
                 </p>
+                    <p class="btn btn-success" id="after_bid_amount_ride_${data.ride.id}">  </p>
+                <div id="root_bid_control_ride_${data.ride.id}">
+                    <div class="for-group row mb-2">
+                        <input type="text" class="bid_amount form-control mt-1" id="bid_now_value_${data.ride.id}" placeholder="Enter your offer">
+                        <button class="btn btn-info btn-sm float-right bid_now_btn" data-ride_id="${data.ride.id}" >BID NOW</button>
+                    </div>
                 
-                <div class="for-group row mb-2">
-                    <input type="text" class="bid_amount form-control mt-1" id="driver_bid_amount_${data.ride.id}" placeholder="Enter your offer">
-                    <button class="btn btn-info btn-sm float-right bid_now_btn"   data-ride_id="${data.ride.id}" >BID NOW</button>
-                </div>
-            
-                <div class="mt-1">
-                <a href="#" class="btn btn-primary accept_btn" data-ride_id="${data.ride.id}">Accept</a>
-                <a href="#" class="btn btn-danger reject_btn">Reject</a>
+                    <div class="mt-1">
+                    <a href="#" class="btn btn-primary alright_btn" data-ride_id="${data.ride.id}">Alright</a>
+                    <a href="#" class="btn btn-danger reject_btn">Reject</a>
+                    </div>
                 </div>
             </div>
         </div> 
     </div>` );
      }
 
-     $(".container").on("click", ".accept_btn", function (event) {
+     $(".container").on("click", ".alright_btn", function (event) {
         let ride_id = $(this).data("ride_id")
+        let ride_fare = parseFloat( $(`#ride_fare_${ride_id}`).text() )
         console.log('ride id: ', ride_id)
-        // let ride_details = $(`input[name="ride_details_${ride_id}['fare']"]`).val()
-        let ride_details = parseFloat( $(`#ride_fare_${ride_id}`).text() )
-        console.log('ride details is: ',  (ride_details))
+        console.log('ride fare is: ',  (ride_fare))
+       let sendRequest =  sendAjaxRequest(`http://localhost:8080/api/v1/ride/${ride_id}/bid`,{driver_id:  getLoggedDriver().id, fare: ride_fare}, ride_id)
+       
+       sendRequest.then((response)=>{
+        console.log('after then result is: ', response);
+        if(response){
+            if(response.bid){
+                console.log('Biddined amount is: ', response.bid.bid_fare)
+                // $(`#root_bid_control_ride_${ride_id}`).hide();
+                $(`#after_bid_amount_ride_${ride_id}`).text(`${response.bid.bid_fare} BDT.`);
+            }
+        }
+      })
+
+    });
+
+    $(".container").on("click", ".bid_now_btn", function (event) {
+        let ride_id = $(this).data("ride_id")
+        let ride_fare = parseFloat( $(`#bid_now_value_${ride_id}`).val() )
+        console.log('ride fare type: ', typeof ride_fare)
+        console.log('bid value: ', $(`#bid_now_value_${ride_id}`).val())
     
-        sendAjaxRequest(`http://localhost:8080/api/v1/ride-bid/${ride_id}`,{driver_id:  getLoggedDriver().id, offered_amount: ride_details})
+       if(!ride_fare || ride_fare < 0){
+       return alert('Please provide a valid value:')
+       }
+    
+       let sendRequest =  sendAjaxRequest(`http://localhost:8080/api/v1/ride/${ride_id}/bid`,{driver_id:  getLoggedDriver().id, fare: ride_fare}, ride_id)
+      sendRequest.then((response)=>{
+        console.log('after then result is: ', response);
+        if(response){
+            if(response.bid){
+                console.log('Biddined amount is: ')
+                // $(`#root_bid_control_ride_${ride_id}`).hide();
+                $(`#after_bid_amount_ride_${ride_id}`).text(`${response.bid.bid_fare} BDT.`);
+            }
+        }
+      })
+       
     });
 
 
-    function sendAjaxRequest(url,payload){
-        return $.ajax({type: "POST",url: url, data: payload, success: function(result){
-            $("#div1").html(result);
+    function sendAjaxRequest(url,payload, ride_id){
+        return $.ajax({type: "POST",url: url, data: payload,
+         success: function(result){
+            return result;
         }});
      }
    
