@@ -115,14 +115,15 @@ function appendNewBidDiv(data){
                 <img class=""card-img-sm-left example-card-img-responsive" src="photos/sample-car.jpeg"/>
                 <div class="card-body">
                 <span class="badge rounded-pill bg-success text-white"> <span id="driver_ratings">${data.driver.rating}</span> * <span id="driver_total_trips">${data.driver.completed_rides}</span> trips</span>
-                <h5 class="card-title">Ride ID: ${data.bid.ride_id}</h5>
+                <h6 class="card-title">Driver: ${data.driver.name}</h6>
+                <h6 class="card-title">Ride ID: ${data.bid.ride_id}</h6>
                 <h5 class="card-title">Corolla Axio 2014</h5>
                 <span class="badge rounded-pill bg-info text-dark ">${data.bid.bid_fare} BDT.</span>
                 <ul class="list-group list-group-horizontal my-1 overflow-auto">
                     <li class="list-group-item"> <span id="est_duration">${data.bid.est_duration}</span> m</li>
                     <li class="list-group-item"><span id="est_distance">${data.bid.est_distance}</span> minutes away</li>
                 </ul>
-                <button class="btn btn-primary accept_bid_btn" data-bid_fare="${data.bid.bid_fare}" data-bid_id="${data.bid.id}" data-ride_id="${data.bid.ride_id}" type="button">Accept</button>
+                <button id="accept_bid_btn_id_${data.bid.id}" class="btn btn-primary accept_bid_btn" data-bid_fare="${data.bid.bid_fare}" data-bid_id="${data.bid.id}" data-ride_id="${data.bid.ride_id}" type="button">Accept</button>
                 </div>
         </div>
        </div>` );
@@ -138,6 +139,9 @@ function appendNewBidDiv(data){
         sendAjaxRequest(`http://localhost:8000/api/v1/ride/${ride_id}/bid/${bid_id}/accept`,{ bid_id:  bid_id, fare: bid_fare}).then((response)=>{
             if(response){
                 console.log('after accept response: ', response)
+                if(response.code == 200){
+                    // $(`#accept_bid_btn_id_${bid_id}`).hide();
+                }
             }
           })
     });
