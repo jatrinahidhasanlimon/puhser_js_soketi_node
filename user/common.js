@@ -146,6 +146,10 @@ function appendNewBidDiv(data){
           })
     });
 
+    function fetchExistingBids(){
+        
+    }
+
 
     function sendAjaxRequest(url,payload){
         return $.ajax({type: "POST",url: url, data: payload, success: function(result){
