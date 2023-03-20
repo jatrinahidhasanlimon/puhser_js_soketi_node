@@ -136,7 +136,7 @@ function appendNewBidDiv(data){
         console.log('bid  fare is: ',  (bid_fare))
         console.log('ride id: ', bid_id)
         console.log('bid id: ', bid_id)
-        sendAjaxRequest(`http://localhost:8000/api/v1/ride/${ride_id}/bid/${bid_id}/accept`,{ bid_id:  bid_id, fare: bid_fare}).then((response)=>{
+        sendAjaxRequest(`http://localhost:8000/api/v1/bid/${bid_id}/accept`,{ bid_id:  bid_id, fare: bid_fare}).then((response)=>{
             if(response){
                 console.log('after accept response: ', response)
                 if(response.code == 200){
@@ -152,7 +152,8 @@ function appendNewBidDiv(data){
 
 
     function sendAjaxRequest(url,payload){
-        return $.ajax({type: "POST",url: url, data: payload, success: function(result){
+        console.log('her');
+        return $.ajax({method:'POST',url: url, data: payload, success: function(result){
             $("#div1").html(result);
         }});
      }

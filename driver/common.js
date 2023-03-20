@@ -187,7 +187,7 @@ $(".container").on("click", ".alright_btn", function (event) {
     let ride_fare = parseFloat($(`#ride_fare_${ride_id}`).text())
     console.log('ride id: ', ride_id)
     console.log('ride fare is: ', (ride_fare))
-    let sendRequest = sendAjaxRequest(`http://localhost:8080/api/v1/ride/${ride_id}/bid`, { driver_id: getLoggedDriver().id, fare: ride_fare }, ride_id)
+    let sendRequest = sendAjaxRequest(`http://localhost:8080/api/v1/ride/${ride_id}/bid`, { driver_id: getLoggedDriver().id, fare: ride_fare }, "POST")
 
     sendRequest.then((response) => {
         console.log('after then result is: ', response);
@@ -212,7 +212,7 @@ $(".container").on("click", ".bid_now_btn", function (event) {
         return alert('Please provide a valid value:')
     }
 
-    let sendRequest = sendAjaxRequest(`http://localhost:8080/api/v1/ride/${ride_id}/bid`, { driver_id: getLoggedDriver().id, fare: ride_fare }, ride_id)
+    let sendRequest = sendAjaxRequest(`http://localhost:8080/api/v1/ride/${ride_id}/bid`, { driver_id: getLoggedDriver().id, fare: ride_fare }, 'POST')
     sendRequest.then((response) => {
         console.log('after then result is: ', response);
         if (response) {
@@ -238,7 +238,7 @@ function sendAjaxRequest(url, payload, method) {
 }
 
 function fetchExistingBids() {
-    let sendRequest = sendAjaxRequest( `http://localhost:8080/api/v1/ride/get-all-pending-requests`, null, "GET"  )
+    let sendRequest = sendAjaxRequest( `http://localhost:8080/api/v1/ride/get-all-pending-requests`, {}, "GET"  )
     sendRequest.then((response) => {
         console.log('after then result is: ', response);
         if (response) {
