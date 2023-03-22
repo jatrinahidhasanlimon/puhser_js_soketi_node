@@ -49,7 +49,7 @@ if (!isLoggedIn()) {
         // window.location.replace("index.php");`
         // return false;
     }
-    fetchExistingBids();
+    fetchExistingRides();
 }
 
 function getProfile() {
@@ -237,7 +237,7 @@ function sendAjaxRequest(url, payload, method) {
     });
 }
 
-function fetchExistingBids() {
+function fetchExistingRides() {
     let sendRequest = sendAjaxRequest( `http://localhost:8080/api/v1/ride/get-all-pending-requests`, {}, "GET"  )
     sendRequest.then((response) => {
         console.log('after then result is: ', response);
